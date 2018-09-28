@@ -180,6 +180,12 @@ elseif(NOT MSVC)
   set(Boost_LIBRARIES "${Boost_LIBRARIES};rt")
 endif()
 
+# Basic Setup for Protobuf Support
+set(Protobuf_LIB libprotobuf)
+set(Protobuf_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/protobuf/src)
+message(STATUS "Protobuf Library: ${Protobuf_LIB}")
+message(STATUS "Protobuf Includes: ${Protobuf_INCLUDE_DIR}")
+
 add_subdirectory(external)
 add_subdirectory(src)
 
