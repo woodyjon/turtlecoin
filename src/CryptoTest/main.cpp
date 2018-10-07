@@ -28,21 +28,37 @@ int main(int argc, char** argv) {
     Hash hash = Hash();
 
     cn_fast_hash(rawData.data(), rawData.size(), hash);
-    std::cout << "Cryptonight Fast Hash: " << Common::toHex(&hash, sizeof(Hash)) << "\n";
+    std::cout << "cn_fast_hash: " << Common::toHex(&hash, sizeof(Hash)) << "\n";
 
     cn_slow_hash_v0(rawData.data(), rawData.size(), hash);
-    std::cout << "Cryptonight v0: " << Common::toHex(&hash, sizeof(Hash)) << "\n";
+    std::cout << "cn_slow_hash_v0: " << Common::toHex(&hash, sizeof(Hash)) << "\n";
 
     if (rawData.size() >= 43)
     {
       cn_slow_hash_v1(rawData.data(), rawData.size(), hash);
-      std::cout << "Cryptonight v1: " << Common::toHex(&hash, sizeof(Hash)) << "\n";
+      std::cout << "cn_slow_hash_v1: " << Common::toHex(&hash, sizeof(Hash)) << "\n";
 
       cn_lite_slow_hash_v0(rawData.data(), rawData.size(), hash);
-      std::cout << "Cryptonight Lite v0: " << Common::toHex(&hash, sizeof(Hash)) << "\n";
+      std::cout << "cn_lite_slow_hash_v0: " << Common::toHex(&hash, sizeof(Hash)) << "\n";
 
       cn_lite_slow_hash_v1(rawData.data(), rawData.size(), hash);
-      std::cout << "Cryptonight Lite v1: " << Common::toHex(&hash, sizeof(Hash)) << "\n";
+      std::cout << "cn_lite_slow_hash_v1: " << Common::toHex(&hash, sizeof(Hash)) << "\n";
+
+      std::cout << "\n";
+
+      for (uint32_t height = 0; height <= 8192; height = height + 512)
+      {
+        cn_soft_shell_slow_hash_v0(rawData.data(), rawData.size(), hash, height);
+        std::cout << "cn_soft_shell_slow_hash_v0 (" << height << "): " << Common::toHex(&hash, sizeof(Hash)) << "\n";
+      }
+
+      std::cout << "\n";
+
+      for (uint32_t height = 0; height <= 8192; height = height + 512)
+      {
+        cn_soft_shell_slow_hash_v1(rawData.data(), rawData.size(), hash, height);
+        std::cout << "cn_soft_shell_slow_hash_v1 (" << height << "): " << Common::toHex(&hash, sizeof(Hash)) << "\n";
+      }
     }
   }
   catch (std::exception& e)
