@@ -701,6 +701,7 @@ void cn_slow_hash(const void *data, size_t length, char *hash, int light, int va
     memcpy(state.init, text, INIT_SIZE_BYTE);
     hash_permutation(&state.hs);
     extra_hashes[state.hs.b[0] & 3](&state, 200, hash);
+    slow_hash_free_state();
 }
 
 #elif !defined NO_AES && (defined(__arm__) || defined(__aarch64__))
